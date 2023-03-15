@@ -88,3 +88,5 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+weather-app.xcodeproj/xcshareddata/xcbaselines/7F9A14B829C24E22003195DF.xcbaseline/E22F6C6D-16CE-46AF-BBA4-011BA54B1C8E.plist
+weather-app.xcodeproj/xcshareddata/xcbaselines/7F9A14B829C24E22003195DF.xcbaseline/Info.plist
