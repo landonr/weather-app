@@ -10,26 +10,27 @@ import RxSwift
 import RxDataSources
 
 class ViewController: UIViewController {
-     private let manager = WeatherManager()
      private let disposeBag = DisposeBag()
-     
+     private let viewModel = ViewModel()
      @IBOutlet weak var collectionView: UICollectionView!
+     
+     fileprivate func bindToCollectionView() {
+          viewModel.weatherData
+               .bind(to: collectionView.rx.items(cellIdentifier: "weatherData")) { index, model, cell in
+                    guard let cell = cell as? WeatherDataCollectionViewCell else {
+                         return
+                    }
+                    cell.configure(model)
+               }.disposed(by: disposeBag)
+     }
      
      override func viewDidLoad() {
           super.viewDidLoad()
           collectionView.collectionViewLayout = createRowLayout()
-
-          manager.getWeatherData(woeid: 4418).map({ data -> [ConsolidatedWeather] in
-               if let data = data.consolidatedWeather.first {
-                    return [data]
-               }
-               return []
-          }).asObservable().bind(to: collectionView.rx.items(cellIdentifier: "weatherData")) { index, model, cell in
-               guard let cell = cell as? WeatherDataCollectionViewCell else {
-                    return
-               }
-               cell.configure(model)
-          }.disposed(by: disposeBag)
+          
+          bindToCollectionView()
+          viewModel.title
+               .bind(to: navigationItem.rx.title).disposed(by: disposeBag)
           // Do any additional setup after loading the view.
      }
      
