@@ -5,28 +5,35 @@
 //  Created by Landon Rohatensky on 2023-03-15.
 //
 
-import Foundation
+import RxSwift
 import UIKit
 
 protocol IWeatherService {
-    func getWeatherData(woeid: Int) -> WeatherData?
+    func getWeatherData(woeid: Int) -> Single<WeatherData>
     func getWeatherStateImage(stateAbbr: String) -> UIImage
 }
 
 class FileWeatherService: IWeatherService {
     private let decoder = JSONDecoder()
 
-    func getWeatherData(woeid: Int) -> WeatherData? {
-        if let path = Bundle.main.url(forResource: "\(woeid)", withExtension: "json") {
-            do {
-                let data = try Data(contentsOf: path, options: .mappedIfSafe)
-                let weatherData = try decoder.decode(WeatherData.self, from: data)
-                return weatherData
-            } catch {
-                print("error: \(error)")
+    func getWeatherData(woeid: Int) -> Single<WeatherData> {
+        return Single.create { [weak decoder] singleObserver in
+            if let path = Bundle.main.url(forResource: "\(woeid)", withExtension: "json"),
+            let decoder = decoder {
+                do {
+                    let data = try Data(contentsOf: path, options: .mappedIfSafe)
+                    let weatherData = try decoder.decode(WeatherData.self, from: data)
+                    singleObserver(.success(weatherData))
+                    return Disposables.create()
+                } catch {
+                    print("error: \(error)")
+                    singleObserver(.failure(error))
+                    return Disposables.create()
+                }
             }
+            singleObserver(.failure(RxError.noElements))
+            return Disposables.create()
         }
-        return nil
     }
     
     func getWeatherStateImage(stateAbbr: String) -> UIImage {
@@ -36,14 +43,14 @@ class FileWeatherService: IWeatherService {
 
 protocol IWeatherManager {
     var service: IWeatherService { get }
-    func getWeatherData(woeid: Int) -> WeatherData?
+    func getWeatherData(woeid: Int) -> Single<WeatherData>
     func getWeatherStateImage(stateAbbr: String) -> UIImage
 }
 
 class WeatherManager: IWeatherManager {
     var service: IWeatherService = FileWeatherService()
     
-    func getWeatherData(woeid: Int) -> WeatherData? {
+    func getWeatherData(woeid: Int) -> Single<WeatherData> {
         return service.getWeatherData(woeid: woeid)
     }
     

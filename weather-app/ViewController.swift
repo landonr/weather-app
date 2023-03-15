@@ -6,17 +6,64 @@
 //
 
 import UIKit
+import RxSwift
+import RxDataSources
 
 class ViewController: UIViewController {
-    private let manager = WeatherManager()
-    
-    @IBOutlet weak var collectionView: UICollectionView?
+     private let manager = WeatherManager()
+     private let disposeBag = DisposeBag()
+     
+     @IBOutlet weak var collectionView: UICollectionView!
+     
+     override func viewDidLoad() {
+          super.viewDidLoad()
+          collectionView.collectionViewLayout = createRowLayout()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        print(manager.getWeatherData(woeid: 4418))
-        // Do any additional setup after loading the view.
-    }
+          manager.getWeatherData(woeid: 4418).map({ data -> [ConsolidatedWeather] in
+               if let data = data.consolidatedWeather.first {
+                    return [data]
+               }
+               return []
+          }).asObservable().bind(to: collectionView.rx.items(cellIdentifier: "weatherData")) { index, model, cell in
+               guard let cell = cell as? WeatherDataCollectionViewCell else {
+                    return
+               }
+               cell.configure(model)
+          }.disposed(by: disposeBag)
+          // Do any additional setup after loading the view.
+     }
+     
+     func createRowLayout() -> UICollectionViewLayout {
+          let itemSize = NSCollectionLayoutSize(
+               widthDimension: .fractionalWidth(1.0),
+               heightDimension: .fractionalHeight(1.0)
+          )
+          let item = NSCollectionLayoutItem(layoutSize: itemSize)
+          
+          //3
+          let groupSize = NSCollectionLayoutSize(
+               widthDimension: .fractionalWidth(1.0),
+               heightDimension: .fractionalWidth(0.33)
+          )
+          let group = NSCollectionLayoutGroup.horizontal(
+               layoutSize: .init(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .fractionalHeight(0.2)
+               ), subitems: [item])
+          
+          //4
+          let section = NSCollectionLayoutSection(group: group)
+          section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
+          
+          //5
+          let spacing = CGFloat(10)
+          group.interItemSpacing = .fixed(spacing)
+          section.interGroupSpacing = spacing
+          
+          //6
+          let layout = UICollectionViewCompositionalLayout(section: section)
+          return layout
+     }
 }
 
 class WeatherDataCollectionViewCell: UICollectionViewCell {
