@@ -5,12 +5,14 @@
 //  Created by Landon Rohatensky on 2023-03-15.
 //
 
+import RxBlocking
 import XCTest
+
 @testable import weather_app
 
 final class weather_appTests: XCTestCase {
     let woeid: Int = 4418
-    let manager = WeatherManager()
+    let manager = WeatherManager(service: FileWeatherService())
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -21,18 +23,54 @@ final class weather_appTests: XCTestCase {
     }
     
     func testLoadsData() {
-        let data = manager.getWeatherData(woeid: woeid)
-        XCTAssertNotNil(data)
+        // test that weather returns
+
+        do {
+            let viewModel: IViewModel = ViewModel(manager: manager)
+            let result = try viewModel.weatherData.toBlocking().first()
+            XCTAssert(result?.count ?? 0 > 0)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
     }
     
     func testConsolidatedWeatherExists() {
-        let data = manager.getWeatherData(woeid: woeid)
-        XCTAssert(data?.consolidatedWeather.first?.id == 4805883302248448)
+        // tests that the weather matches what we know
+
+        do {
+            let viewModel: IViewModel = ViewModel(manager: manager)
+            let result = try viewModel.weatherData.toBlocking().first()
+            XCTAssert(result?.first?.id == 4805883302248448)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
     }
     
-    func testWoeIDMatches() {
-        let data = manager.getWeatherData(woeid: woeid)
-        XCTAssert(data?.woeid == woeid)
+    func testTitleData() {
+        // tests that a tile returns
+
+        do {
+            let viewModel: IViewModel = ViewModel(manager: manager)
+            let result = try viewModel.title.toBlocking().first()
+            XCTAssertNotEqual(result, "")
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
+    func testImageData() {
+        // tests all images load
+
+        do {
+            let viewModel: IViewModel = ViewModel(manager: manager)
+            let results = try viewModel.weatherData.toBlocking().first()
+            for result in results ?? [] {
+                let image = try viewModel.getImageForState(state: result.weatherStateAbbr).toBlocking().first()
+                XCTAssertNotNil(image)
+            }
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
     }
 
     func testPerformanceExample() throws {

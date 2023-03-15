@@ -14,8 +14,12 @@ protocol IWeatherManager {
 }
 
 class WeatherManager: IWeatherManager {
-    var service: IWeatherService = HTTPWeatherService()
+    var service: IWeatherService
     
+    init(service: IWeatherService) {
+        self.service = service
+    }
+
     func getWeatherData(woeid: Int) -> Single<WeatherData> {
         return service.getWeatherData(woeid: woeid)
     }

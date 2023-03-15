@@ -10,11 +10,18 @@ import RxSwift
 import RxOptional
 import UIKit
 
-class ViewModel {
+protocol IViewModel {
+    func getImageForState(state: String) -> Single<UIImage>
+    var manager: IWeatherManager { get }
+    var weatherData: Observable<[ConsolidatedWeather]> { get }
+    var title: Observable<String> { get }
+}
+
+class ViewModel: IViewModel {
     private static let maxItems = 1
     private let disposeBag = DisposeBag()
     private let woeid = 4418
-    private let manager = WeatherManager()
+    let manager: IWeatherManager
     private let weatherDataSubject = BehaviorSubject<WeatherData?>(value: nil)
     var weatherData: Observable<[ConsolidatedWeather]> {
         weatherDataSubject.filterNil().map { data in
@@ -30,7 +37,17 @@ class ViewModel {
         }
     }
     
+    init(manager: IWeatherManager) {
+        self.manager = manager
+        sharedInit()
+    }
+ 
     init() {
+        manager = WeatherManager(service: HTTPWeatherService())
+        sharedInit()
+    }
+    
+    private func sharedInit() {
         manager.getWeatherData(woeid: woeid)
             .subscribe { [weak weatherDataSubject] event in
             switch event {

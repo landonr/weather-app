@@ -35,7 +35,7 @@ class HTTPImageService: IImageService {
                     print(error)
                     singleObserver(.failure(error))
                 } else if let image = image {
-                    print("loaded image from \(cacheType.localized)")
+                    print("loaded \(name) image from \(cacheType.localized)")
                     singleObserver(.success(image))
                 } else {
                     singleObserver(.failure(RxError.unknown))

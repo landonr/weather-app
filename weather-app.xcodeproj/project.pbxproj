@@ -33,6 +33,10 @@
 		7FACE33B29C26ED300F1623D /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FACE33A29C26ED300F1623D /* WeatherService.swift */; };
 		7FACE33E29C26F7C00F1623D /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 7FACE33D29C26F7C00F1623D /* SDWebImage */; };
 		7FACE34029C2752100F1623D /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FACE33F29C2752100F1623D /* ImageService.swift */; };
+		7FACE35929C27EE700F1623D /* RxCocoa-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 7FACE35829C27EE700F1623D /* RxCocoa-Dynamic */; };
+		7FACE35B29C27EE700F1623D /* RxCocoa-Dynamic in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 7FACE35829C27EE700F1623D /* RxCocoa-Dynamic */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		7FACE35D29C27EF000F1623D /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 7FACE35C29C27EF000F1623D /* SDWebImage */; };
+		7FACE35F29C27F0D00F1623D /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 7FACE35E29C27F0D00F1623D /* RxBlocking */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +55,20 @@
 			remoteInfo = "weather-app";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7FACE35A29C27EE700F1623D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7FACE35B29C27EE700F1623D /* RxCocoa-Dynamic in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		7F9A14A329C24E21003195DF /* weather-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "weather-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,6 +115,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7FACE35D29C27EF000F1623D /* SDWebImage in Frameworks */,
+				7FACE35F29C27F0D00F1623D /* RxBlocking in Frameworks */,
+				7FACE35929C27EE700F1623D /* RxCocoa-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,6 +138,7 @@
 				7F9A14BC29C24E22003195DF /* weather-appTests */,
 				7F9A14C629C24E22003195DF /* weather-appUITests */,
 				7F9A14A429C24E21003195DF /* Products */,
+				7FACE35529C27EA300F1623D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -188,6 +210,13 @@
 			path = models;
 			sourceTree = "<group>";
 		};
+		7FACE35529C27EA300F1623D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -223,6 +252,7 @@
 				7F9A14B529C24E22003195DF /* Sources */,
 				7F9A14B629C24E22003195DF /* Frameworks */,
 				7F9A14B729C24E22003195DF /* Resources */,
+				7FACE35A29C27EE700F1623D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -230,6 +260,11 @@
 				7F9A14BB29C24E22003195DF /* PBXTargetDependency */,
 			);
 			name = "weather-appTests";
+			packageProductDependencies = (
+				7FACE35829C27EE700F1623D /* RxCocoa-Dynamic */,
+				7FACE35C29C27EF000F1623D /* SDWebImage */,
+				7FACE35E29C27F0D00F1623D /* RxBlocking */,
+			);
 			productName = "weather-appTests";
 			productReference = 7F9A14B929C24E22003195DF /* weather-appTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -757,6 +792,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7FACE33C29C26F7C00F1623D /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
+		};
+		7FACE35829C27EE700F1623D /* RxCocoa-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7FACE31A29C25A9C00F1623D /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = "RxCocoa-Dynamic";
+		};
+		7FACE35C29C27EF000F1623D /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7FACE33C29C26F7C00F1623D /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		7FACE35E29C27F0D00F1623D /* RxBlocking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7FACE31A29C25A9C00F1623D /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxBlocking;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
