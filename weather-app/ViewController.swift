@@ -28,18 +28,31 @@ class ViewController: UIViewController {
          return layout
      }
      
-     fileprivate func bindToCollectionView() {
+     private func bindCellImage(_ cell: WeatherDataCollectionViewCell, weatherState: String) {
+          viewModel.getImageForState(state: weatherState).subscribe({ event in
+               switch event {
+               case .failure:
+                    break
+               case .success(let image):
+                    cell.setImage(image)
+               }
+          }).disposed(by: cell.disposeBag)
+     }
+     
+     private func bindToCollectionView() {
           viewModel.weatherData
-               .bind(to: collectionView.rx.items(cellIdentifier: "weatherData")) { index, model, cell in
+               .bind(to: collectionView.rx.items(cellIdentifier: "weatherData")) { [weak self] index, model, cell in
                     guard let cell = cell as? WeatherDataCollectionViewCell else {
                          return
                     }
                     cell.configure(model)
+                    self?.bindCellImage(cell, weatherState: model.weatherStateAbbr)
                }.disposed(by: disposeBag)
      }
      
      override func viewDidLoad() {
           super.viewDidLoad()
+          navigationController?.navigationBar.prefersLargeTitles = true
           collectionView.collectionViewLayout = createBasicListLayout()
           
           bindToCollectionView()

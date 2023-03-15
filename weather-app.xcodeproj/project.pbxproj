@@ -27,6 +27,12 @@
 		7FACE32929C2611D00F1623D /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FACE32829C2611D00F1623D /* ViewModel.swift */; };
 		7FACE32C29C2642100F1623D /* WeatherDataCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FACE32B29C2642100F1623D /* WeatherDataCollectionViewCell.swift */; };
 		7FACE33129C2668E00F1623D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7FACE33029C2668E00F1623D /* Localizable.strings */; };
+		7FACE33529C2694700F1623D /* ConsolidatedWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FACE33429C2694700F1623D /* ConsolidatedWeather.swift */; };
+		7FACE33729C2695900F1623D /* WeatherSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FACE33629C2695900F1623D /* WeatherSource.swift */; };
+		7FACE33929C2696C00F1623D /* WeatherCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FACE33829C2696C00F1623D /* WeatherCountry.swift */; };
+		7FACE33B29C26ED300F1623D /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FACE33A29C26ED300F1623D /* WeatherService.swift */; };
+		7FACE33E29C26F7C00F1623D /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 7FACE33D29C26F7C00F1623D /* SDWebImage */; };
+		7FACE34029C2752100F1623D /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FACE33F29C2752100F1623D /* ImageService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +72,11 @@
 		7FACE32829C2611D00F1623D /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		7FACE32B29C2642100F1623D /* WeatherDataCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataCollectionViewCell.swift; sourceTree = "<group>"; };
 		7FACE33029C2668E00F1623D /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		7FACE33429C2694700F1623D /* ConsolidatedWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsolidatedWeather.swift; sourceTree = "<group>"; };
+		7FACE33629C2695900F1623D /* WeatherSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherSource.swift; sourceTree = "<group>"; };
+		7FACE33829C2696C00F1623D /* WeatherCountry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCountry.swift; sourceTree = "<group>"; };
+		7FACE33A29C26ED300F1623D /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
+		7FACE33F29C2752100F1623D /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7FACE33E29C26F7C00F1623D /* SDWebImage in Frameworks */,
 				7FACE32129C25AB200F1623D /* RxDataSources in Frameworks */,
 				7FACE32429C25AC400F1623D /* Alamofire in Frameworks */,
 				7FACE31F29C25AB200F1623D /* Differentiator in Frameworks */,
@@ -130,6 +142,8 @@
 				7F9A14AA29C24E21003195DF /* ViewController.swift */,
 				7FACE32829C2611D00F1623D /* ViewModel.swift */,
 				7F9A14DA29C24FAE003195DF /* WeatherManager.swift */,
+				7FACE33A29C26ED300F1623D /* WeatherService.swift */,
+				7FACE33F29C2752100F1623D /* ImageService.swift */,
 				7F9A14AC29C24E21003195DF /* Main.storyboard */,
 				7F9A14AF29C24E22003195DF /* Assets.xcassets */,
 				7F9A14B129C24E22003195DF /* LaunchScreen.storyboard */,
@@ -167,6 +181,9 @@
 			isa = PBXGroup;
 			children = (
 				7F9A14D829C24EE5003195DF /* WeatherData.swift */,
+				7FACE33429C2694700F1623D /* ConsolidatedWeather.swift */,
+				7FACE33629C2695900F1623D /* WeatherSource.swift */,
+				7FACE33829C2696C00F1623D /* WeatherCountry.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -193,6 +210,7 @@
 				7FACE32029C25AB200F1623D /* RxDataSources */,
 				7FACE32329C25AC400F1623D /* Alamofire */,
 				7FACE32629C25AD200F1623D /* RxOptional */,
+				7FACE33D29C26F7C00F1623D /* SDWebImage */,
 			);
 			productName = "weather-app";
 			productReference = 7F9A14A329C24E21003195DF /* weather-app.app */;
@@ -271,6 +289,7 @@
 				7FACE31D29C25AB200F1623D /* XCRemoteSwiftPackageReference "RxDataSources" */,
 				7FACE32229C25AC400F1623D /* XCRemoteSwiftPackageReference "Alamofire" */,
 				7FACE32529C25AD200F1623D /* XCRemoteSwiftPackageReference "RxOptional" */,
+				7FACE33C29C26F7C00F1623D /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 7F9A14A429C24E21003195DF /* Products */;
 			projectDirPath = "";
@@ -318,11 +337,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F9A14AB29C24E21003195DF /* ViewController.swift in Sources */,
+				7FACE33929C2696C00F1623D /* WeatherCountry.swift in Sources */,
+				7FACE33B29C26ED300F1623D /* WeatherService.swift in Sources */,
 				7F9A14A729C24E21003195DF /* AppDelegate.swift in Sources */,
 				7F9A14DB29C24FAE003195DF /* WeatherManager.swift in Sources */,
+				7FACE34029C2752100F1623D /* ImageService.swift in Sources */,
 				7FACE32C29C2642100F1623D /* WeatherDataCollectionViewCell.swift in Sources */,
 				7F9A14D929C24EE5003195DF /* WeatherData.swift in Sources */,
+				7FACE33529C2694700F1623D /* ConsolidatedWeather.swift in Sources */,
 				7FACE32929C2611D00F1623D /* ViewModel.swift in Sources */,
+				7FACE33729C2695900F1623D /* WeatherSource.swift in Sources */,
 				7F9A14A929C24E21003195DF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -693,6 +717,14 @@
 				kind = branch;
 			};
 		};
+		7FACE33C29C26F7C00F1623D /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -720,6 +752,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7FACE32529C25AD200F1623D /* XCRemoteSwiftPackageReference "RxOptional" */;
 			productName = RxOptional;
+		};
+		7FACE33D29C26F7C00F1623D /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7FACE33C29C26F7C00F1623D /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

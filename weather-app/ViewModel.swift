@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxOptional
+import UIKit
 
 class ViewModel {
     private let disposeBag = DisposeBag()
@@ -35,5 +36,9 @@ class ViewModel {
                 print(error)
             }
         }.disposed(by: disposeBag)
+    }
+    
+    func getImageForState(state: String) -> Single<UIImage> {
+        return manager.getWeatherStateImage(stateAbbr: state)
     }
 }
