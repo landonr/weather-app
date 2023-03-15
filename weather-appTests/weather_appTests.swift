@@ -58,6 +58,25 @@ final class weather_appTests: XCTestCase {
         }
     }
     
+    func testRealisticData() {
+        // tests that a tile returns
+        let minRecordedTemp: Double = -90
+        let maxRecordedTemp: Double = 250
+        do {
+            let viewModel: IViewModel = ViewModel(manager: manager)
+            let results = try viewModel.weatherData.toBlocking().first()
+            XCTAssertGreaterThan(results?.count ?? 0, 0)
+            for result in results ?? [] {
+                for temp in [result.minTemp, result.maxTemp, result.theTemp] {
+                    XCTAssertGreaterThan(temp, minRecordedTemp)
+                    XCTAssertLessThan(temp, maxRecordedTemp)
+                }
+            }
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
     func testImageData() {
         // tests all images load
 
