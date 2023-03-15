@@ -10,6 +10,7 @@ import RxSwift
 import RxOptional
 
 class ViewModel {
+    private let disposeBag = DisposeBag()
     private let woeid = 4418
     private let manager = WeatherManager()
     private let weatherDataSubject = BehaviorSubject<WeatherData?>(value: nil)
@@ -20,18 +21,19 @@ class ViewModel {
     }
     var title: Observable<String> {
         weatherDataSubject.map {
-            $0?.title ?? "Loading..."
+            $0?.title ?? NSLocalizedString("loading", comment: "Loading")
         }
     }
     
     init() {
-        manager.getWeatherData(woeid: woeid).subscribe { [weak weatherDataSubject] event in
+        manager.getWeatherData(woeid: woeid)
+            .subscribe { [weak weatherDataSubject] event in
             switch event {
             case .success(let data):
                 weatherDataSubject?.onNext(data)
             case .failure(let error):
                 print(error)
             }
-        }
+        }.disposed(by: disposeBag)
     }
 }

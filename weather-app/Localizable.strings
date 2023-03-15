@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  weather-app
+
+  Created by Landon Rohatensky on 2023-03-15.
+  
+*/
+
+"loading" = "Loading...";
+"tempMin" = "L: %@";
+"tempMax" = "H: %@";
