@@ -35,13 +35,30 @@ class HTTPImageService: IImageService {
                     print(error)
                     singleObserver(.failure(error))
                 } else if let image = image {
-                    print("loaded image from \(cacheType)")
+                    print("loaded image from \(cacheType.localized)")
                     singleObserver(.success(image))
                 } else {
                     singleObserver(.failure(RxError.unknown))
                 }
             }
             return Disposables.create()
+        }
+    }
+}
+
+extension SDImageCacheType {
+    var localized: String {
+        switch self {
+        case .all:
+            return "all"
+        case .none:
+            return "none"
+        case .disk:
+            return "disk"
+        case .memory:
+            return "memory"
+        default:
+            return "not found"
         }
     }
 }

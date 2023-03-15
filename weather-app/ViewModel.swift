@@ -11,13 +11,17 @@ import RxOptional
 import UIKit
 
 class ViewModel {
+    private static let maxItems = 1
     private let disposeBag = DisposeBag()
     private let woeid = 4418
     private let manager = WeatherManager()
     private let weatherDataSubject = BehaviorSubject<WeatherData?>(value: nil)
     var weatherData: Observable<[ConsolidatedWeather]> {
         weatherDataSubject.filterNil().map { data in
-            return data.consolidatedWeather.first != nil ? [data.consolidatedWeather.first!] : []
+            if ViewModel.maxItems > 0 {
+                return Array(data.consolidatedWeather.prefix(ViewModel.maxItems))
+            }
+            return data.consolidatedWeather
         }
     }
     var title: Observable<String> {

@@ -16,14 +16,14 @@ class ViewController: UIViewController {
      
      private func createBasicListLayout() -> UICollectionViewLayout {
          let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                               heightDimension: .fractionalHeight(0.2))
+                                               heightDimension: .estimated(1))
          let item = NSCollectionLayoutItem(layoutSize: itemSize)
          let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                heightDimension: .fractionalHeight(1.0))
+                                                heightDimension: .estimated(1))
          let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                           subitems: [item])
          let section = NSCollectionLayoutSection(group: group)
-
+          section.interGroupSpacing = 16
          let layout = UICollectionViewCompositionalLayout(section: section)
          return layout
      }
