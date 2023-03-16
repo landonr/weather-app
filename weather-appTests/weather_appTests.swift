@@ -61,7 +61,7 @@ final class weather_appTests: XCTestCase {
     func testRealisticData() {
         // tests that a tile returns
         let minRecordedTemp: Double = -90
-        let maxRecordedTemp: Double = 250
+        let maxRecordedTemp: Double = 57
         do {
             let viewModel: IViewModel = ViewModel(manager: manager)
             let results = try viewModel.weatherData.toBlocking().first()
